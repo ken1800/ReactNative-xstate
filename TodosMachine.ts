@@ -6,24 +6,30 @@ export interface ITodo {
   editing?: boolean;
 }
 
-interface ITodoContext {
+export interface ITodoContext {
   todos: ITodo[];
   text: string;
   todRef: any;
+  editItem?: any;
 }
 
-interface ITodosSchema {
+export interface ITodosSchema {
   value: 'idle' | 'edit';
   context: ITodoContext;
 }
 
-type ITodoEvent =
+export type ITodoEvent =
   | { type: 'ADD_TODO' }
   | { type: 'ADDING'; text: string }
   | { type: 'MARK_DONE'; id: string }
   | { type: 'CLEAR_TODOS' }
-  | { type: 'EDIT'; id: string }
-  | { type: 'EDITING' };
+  | { type: 'EDIT'; editItem: ITodo }
+  | { type: 'EDITING'; text: string }
+  | { type: 'SUBMIT' }
+  | {
+      type: 'DELETE';
+      id: string;
+    };
 
 export const TodosMachine = () =>
   createMachine<ITodoContext, ITodoEvent, ITodosSchema>({
@@ -88,14 +94,50 @@ export const TodosMachine = () =>
 
           EDIT: {
             target: 'edit',
+            actions: assign((context, event) => ({
+              editItem: event.editItem,
+            })),
+          },
+          DELETE: {
+            target: 'idle',
+            actions: assign((context, event) => {
+              console.log(event);
+              return {
+                ...context,
+                todos: context?.todos?.filter((todo) => todo?.id !== event.id),
+              };
+            }),
           },
         },
       },
       edit: {
-        entry: () => console.log('We are on Edit state man'),
         on: {
           EDITING: {
             target: 'edit',
+            actions: assign((context, event) => {
+              return {
+                ...context,
+                editItem: {
+                  ...context.editItem,
+                  text: event?.text,
+                },
+              };
+            }),
+          },
+          SUBMIT: {
+            target: 'idle',
+            actions: assign((context, event) => {
+              return {
+                todos: context.todos?.map((todo) => {
+                  return todo.id === context?.editItem.id
+                    ? {
+                        ...context?.editItem,
+                        cleared: false,
+                      }
+                    : todo;
+                }),
+              };
+            }),
           },
         },
       },

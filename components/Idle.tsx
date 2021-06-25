@@ -1,18 +1,28 @@
-import React from 'react';
+import { useMachine } from '@xstate/react';
+import React, { useContext } from 'react';
 import { View, Button, Text } from 'react-native';
-import { send } from 'xstate';
 import { ITodo } from '../TodosMachine';
+import { MachineContext } from '../context/MachineContext';
 
 function Idle({ item }: { item: ITodo }) {
+  const { send, machine } = useContext(MachineContext);
   return (
-    <div>
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
       <Text
         style={{
           padding: 2,
           borderColor: '#f0f0f0',
           backgroundColor: '#f9f9f9',
-          borderBottomColor: 'blue',
           textDecorationLine: `${item?.cleared ? 'line-through' : 'none'}`,
+          marginRight: 2,
+          fontSize: 20,
+          marginEnd: 5,
         }}
         onPress={() =>
           send({
@@ -21,18 +31,52 @@ function Idle({ item }: { item: ITodo }) {
           })
         }
       >
-        - {item?.text} -{new Date().toDateString()}
+        {item?.text}
       </Text>
 
-      <View style={{ padding: 1 }}>
-        <Button
-          title='Edit'
-          color='orange'
-          accessibilityLabel='Tap to Decrypt Data'
-          onPress={() => console?.log('Yoh')}
-        />
+      <View
+        style={{
+          padding: 4,
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+        }}
+      >
+        {!item.cleared && (
+          <View
+            style={{
+              padding: 2,
+            }}
+          >
+            <Button
+              title='Edt'
+              color='orange'
+              onPress={() =>
+                send({
+                  type: 'EDIT',
+                  editItem: item,
+                })
+              }
+            />
+          </View>
+        )}
+        <View
+          style={{
+            padding: 2,
+          }}
+        >
+          <Button
+            title='Del'
+            color='red'
+            onPress={() =>
+              send({
+                type: 'DELETE',
+                id: item?.id,
+              })
+            }
+          />
+        </View>
       </View>
-    </div>
+    </View>
   );
 }
 
