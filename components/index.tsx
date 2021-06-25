@@ -12,16 +12,16 @@ function index() {
   return (
     <View
       style={{
-        padding: 50,
-        flex: 4,
-        flexDirection: 'column',
+        padding: 30,
+        flex: 1,
+        backgroundColor: '#302b63',
       }}
     >
       <Header />
-
       <Add />
-
-      {machine.matches('idle') && <ViewScreen />}
+      {machine.matches('idle') && machine?.context?.todos?.length > 0 && (
+        <ViewScreen />
+      )}
 
       {machine?.matches('edit') && <EditScreen />}
       <StatusBar />

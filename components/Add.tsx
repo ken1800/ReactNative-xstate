@@ -1,18 +1,14 @@
 import React, { useContext } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
 import { MachineContext } from '../context/MachineContext';
 
 function Add() {
   const { send, machine } = useContext(MachineContext);
 
   return (
-    <View>
+    <View style={styles.containter}>
       <TextInput
-        style={{
-          borderColor: 'black',
-          padding: 4,
-          borderBottomWidth: 2,
-        }}
+        style={styles.text}
         onChangeText={(e) =>
           send({
             type: 'ADDING',
@@ -21,36 +17,63 @@ function Add() {
         }
         value={machine?.context?.text}
       />
-      <View
-        style={{
-          padding: 7,
-          width: '80%',
-          marginBottom: '10%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Button
-          title='Add'
-          onPress={() =>
-            send({
-              type: 'ADD_TODO',
-            })
-          }
-          disabled={!machine?.context?.text}
-        />
-        <Button
-          title='Clear'
-          onPress={() =>
-            send({
-              type: 'CLEAR_TODOS',
-            })
-          }
-          color='black'
-        />
+      <View style={styles.buttonsContainer}>
+        <View style={styles.clearButton}>
+          <Button
+            title='Clear'
+            onPress={() =>
+              send({
+                type: 'CLEAR_TODOS',
+              })
+            }
+            color='#39a3c6'
+          />
+        </View>
+        <View style={styles.addButton}>
+          <Button
+            title='Create'
+            onPress={() =>
+              send({
+                type: 'ADD_TODO',
+              })
+            }
+            disabled={!machine?.context?.text}
+            color='#248c2e'
+          />
+        </View>
       </View>
     </View>
   );
 }
 
 export default Add;
+
+const styles = StyleSheet.create({
+  containter: {
+    padding: 1,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    padding: 2,
+  },
+  text: {
+    height: 40,
+    paddingLeft: 6,
+    margin: 5,
+    borderColor: '#ffffff',
+    borderWidth: 1,
+    color: 'white',
+    fontSize: 15,
+    borderRadius: 10,
+  },
+
+  clearButton: {
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  addButton: {
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+});
