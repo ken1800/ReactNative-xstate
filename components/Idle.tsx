@@ -1,19 +1,12 @@
-import { useMachine } from '@xstate/react';
 import React, { useContext } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text, StyleSheet } from 'react-native';
 import { ITodo } from '../TodosMachine';
 import { MachineContext } from '../context/MachineContext';
 
 function Idle({ item }: { item: ITodo }) {
-  const { send, machine } = useContext(MachineContext);
+  const { send } = useContext(MachineContext);
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
-    >
+    <View style={styles.Container}>
       <Text
         style={{
           padding: 2,
@@ -79,5 +72,11 @@ function Idle({ item }: { item: ITodo }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  Container: {
+    justifyContent: 'center',
+  },
+});
 
 export default Idle;

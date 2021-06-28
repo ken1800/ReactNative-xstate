@@ -5,21 +5,12 @@ import Idle from './Idle';
 import { MachineContext } from '../context/MachineContext';
 
 function ViewScreen() {
-  const { machine, send } = useContext(MachineContext);
+  const { machine } = useContext(MachineContext);
 
   return (
     <View style={styles.ListContainer}>
       {machine?.context?.todos?.map((item: ITodo) => (
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            direction: 'inherit',
-            justifyContent: 'space-between',
-            padding: 2,
-          }}
-          key={item?.id}
-        >
+        <View style={styles.ItemContainer} key={item?.id}>
           <Idle item={item} />
         </View>
       ))}
@@ -35,6 +26,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 4,
     borderColor: 'white',
+  },
+  ItemContainer: {
+    flexWrap: 'wrap',
   },
 });
 
