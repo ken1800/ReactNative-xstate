@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ITodo } from '../TodosMachine';
 import Idle from './Idle';
 import { MachineContext } from '../context/MachineContext';
@@ -27,9 +27,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     borderColor: 'white',
   },
-  ItemContainer: {
-    flexWrap: 'wrap',
-  },
+  ItemContainer: {},
 });
 
 export default ViewScreen;

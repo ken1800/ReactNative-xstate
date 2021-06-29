@@ -15,10 +15,11 @@ function index() {
         padding: 30,
         flex: 1,
         backgroundColor: '#302b63',
+        flexShrink: 12,
       }}
     >
       <Header />
-      <Add />
+      {!machine.matches('edit') && <Add />}
       {machine.matches('idle') && machine?.context?.todos?.length > 0 && (
         <ViewScreen />
       )}

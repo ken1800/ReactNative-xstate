@@ -6,17 +6,9 @@ import { MachineContext } from '../context/MachineContext';
 function Idle({ item }: { item: ITodo }) {
   const { send } = useContext(MachineContext);
   return (
-    <View style={styles.Container}>
+    <View style={styles(item).Container}>
       <Text
-        style={{
-          padding: 2,
-          borderColor: '#f0f0f0',
-          backgroundColor: '#f9f9f9',
-          textDecorationLine: `${item?.cleared ? 'line-through' : 'none'}`,
-          marginRight: 2,
-          fontSize: 20,
-          marginEnd: 5,
-        }}
+        style={styles(item).Text}
         onPress={() =>
           send({
             type: 'MARK_DONE',
@@ -27,19 +19,9 @@ function Idle({ item }: { item: ITodo }) {
         {item?.text}
       </Text>
 
-      <View
-        style={{
-          padding: 4,
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-        }}
-      >
+      <View style={styles(item).ButtonContainer}>
         {!item.cleared && (
-          <View
-            style={{
-              padding: 2,
-            }}
-          >
+          <View style={styles(item).Button}>
             <Button
               title='Edt'
               color='orange'
@@ -73,10 +55,34 @@ function Idle({ item }: { item: ITodo }) {
   );
 }
 
-const styles = StyleSheet.create({
-  Container: {
-    justifyContent: 'center',
-  },
-});
+const styles = (item: any) =>
+  StyleSheet.create({
+    Container: {
+      justifyContent: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      borderColor: 'gray',
+      borderBottomWidth: 1,
+      borderBottomEndRadius: 15,
+      borderBottomStartRadius: 15,
+      padding: 2,
+    },
+    Text: {
+      textDecorationLine: `${item?.cleared ? 'line-through' : 'none'}`,
+      color: 'white',
+      fontSize: 14,
+    },
+    ButtonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      borderColor: 'gray',
+      borderWidth: 1,
+      margin: 10,
+    },
+    Button: {
+      padding: 2,
+    },
+  });
 
 export default Idle;
