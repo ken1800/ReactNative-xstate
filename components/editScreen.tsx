@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    height: 10,
+    width: 100,
   },
 });
 export default editScreen;

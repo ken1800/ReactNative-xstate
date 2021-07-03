@@ -5,9 +5,9 @@ import ViewScreen from './ViewScreen';
 import EditScreen from './editScreen';
 import Add from './Add';
 import { MachineContext } from '../context/MachineContext';
+
 function index() {
   const { machine } = useContext(MachineContext);
-  console.log({ ctx: machine.value });
 
   return (
     <View

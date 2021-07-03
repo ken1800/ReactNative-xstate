@@ -23,7 +23,7 @@ function Idle({ item }: { item: ITodo }) {
         {!item.cleared && (
           <View style={styles(item).Button}>
             <Button
-              title='Edt'
+              title='Edit'
               color='orange'
               onPress={() =>
                 send({
@@ -34,13 +34,9 @@ function Idle({ item }: { item: ITodo }) {
             />
           </View>
         )}
-        <View
-          style={{
-            padding: 2,
-          }}
-        >
+        <View style={styles(item).Button}>
           <Button
-            title='Del'
+            title='Delete'
             color='red'
             onPress={() =>
               send({
@@ -82,6 +78,7 @@ const styles = (item: any) =>
     },
     Button: {
       padding: 2,
+      width: 80,
     },
   });
 

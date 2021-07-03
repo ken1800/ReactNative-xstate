@@ -18,7 +18,7 @@ function Add() {
         value={machine?.context?.text}
       />
       <View style={styles.buttonsContainer}>
-        <View style={styles.clearButton}>
+        <View style={styles.Button}>
           <Button
             title='Clear'
             onPress={() =>
@@ -29,7 +29,7 @@ function Add() {
             color='#39a3c6'
           />
         </View>
-        <View style={styles.addButton}>
+        <View style={styles.Button}>
           <Button
             title='Create'
             onPress={() =>
@@ -68,12 +68,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  clearButton: {
+  Button: {
     borderWidth: 1,
     borderRadius: 10,
-  },
-  addButton: {
-    borderWidth: 1,
-    borderRadius: 10,
+    width: 100,
   },
 });
