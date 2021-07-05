@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import { MachineContext } from '../context/MachineContext';
+
 function editScreen() {
   const { machine, send } = useContext(MachineContext);
   return (

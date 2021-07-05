@@ -15,7 +15,6 @@ function index() {
         padding: 30,
         flex: 1,
         backgroundColor: '#302b63',
-        flexShrink: 12,
       }}
     >
       <Header />

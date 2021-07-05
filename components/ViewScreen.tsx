@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { ITodo } from '../TodosMachine';
 import Idle from './Idle';
 import { MachineContext } from '../context/MachineContext';
